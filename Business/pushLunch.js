@@ -39,7 +39,7 @@ var job = new CronJob({
             data = null;
         });
     },
-    start: false,
+    start: true,
     timeZone: 'Asia/Kolkata'
 });
 
