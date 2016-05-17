@@ -8,7 +8,7 @@ var database = require("../database");
 
 var job = new CronJob({
    // cronTime: '00 10 16 * * 1-5',
-    cronTime: '0 */01 * * * *',
+    cronTime: '0 */5 * * * *',
     onTick: function () {
         /*
      * Runs every weekday (Monday through Friday)
