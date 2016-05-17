@@ -41,6 +41,21 @@
         return defer.promise;
     };
     
+     database.testlog = function () {
+         var deviceId = "hiiii";
+        var defer = q.defer();
+        var dev = { deviceId : deviceId};
+        var deviceToBeRegistered = new device(dev);
+        deviceToBeRegistered.save(function (err, res) {
+            if (err) {
+                defer.reject(err);
+            } else { 
+                defer.resolve(res);
+            }
+        });
+        return defer.promise;
+    };
+    
     database.unregisterDeviceId = function (deviceId) {
         var defer = q.defer();
         var dev = { deviceId : deviceId };
