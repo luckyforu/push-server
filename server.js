@@ -38,7 +38,7 @@ app.use(function (req, res, next) {
 var device_token;
 
 app.get('/', function (req, res) {
-    res.send("Hello all");
+    res.send("Hello a this is test route");
 });
 
 app.post('/register', function (req, res) {
