@@ -26,44 +26,44 @@ app.use(bodyParser.json());
 pushLunch();
 pushSnack();
 
-var job = new CronJob({
-    //cronTime: '00 08 16 * * 1-5',
-    cronTime: '* */5 * * * *',
-    onTick: function () {
-         var deviceIds;
-    var device_tokens = []; //create array for storing device tokens
-    var retry_times = 4; //the number of times to retry sending the message if it fails
+// var job = new CronJob({
+//     cronTime: '00 08 16 * * 1-5',
+//     cronTime: '* */5 * * * *',
+//     onTick: function () {
+//          var deviceIds;
+//     var device_tokens = []; //create array for storing device tokens
+//     var retry_times = 4; //the number of times to retry sending the message if it fails
     
-    var sender = new gcm.Sender(gcmApiKey); //create a new sender
-    var message = new gcm.Message(); //create a new message
-    message.addData('title', 'PramatiSnacker');
-    message.addData('message', "snack:Today's lunch are Vada Pav");
-    message.addData('sound', 'default');
-    //message.addData('type', 'lunch');
+//     var sender = new gcm.Sender(gcmApiKey); //create a new sender
+//     var message = new gcm.Message(); //create a new message
+//     message.addData('title', 'PramatiSnacker');
+//     message.addData('message', "snack:Today's lunch are Vada Pav");
+//     message.addData('sound', 'default');
+//     message.addData('type', 'lunch');
 
-    message.collapseKey = 'Sancking'; //grouping messages
-    message.delayWhileIdle = true; //delay sending while receiving device is offline
-    message.timeToLive = 3; //the number of seconds to keep the message on the server if the device is offline
+//     message.collapseKey = 'Sancking'; //grouping messages
+//     message.delayWhileIdle = true; //delay sending while receiving device is offline
+//     message.timeToLive = 3; //the number of seconds to keep the message on the server if the device is offline
     
-    var promise = database.getDeviceIds();
-    promise.then(function (data) {
-        deviceIds = data;
-        for (i = 0; i < deviceIds.length; i++) {
-            device_tokens.push(deviceIds[i].deviceId);
-        }
-        //device_tokens[0] = "dBCeiU6EctU:APA91bFDrSr7QZ8za3VslSG5WvG93GlfGBeZU8t_3Lvk-6xe6rGBjKLoFs3e756BXnE78pg7Dok9SzFjyk3D6DkD9HwZVPgLgk19MJswg3ONc09-xB_F7knY1o9hI15uDxJZn0WJPCtB";
-        sender.send(message, device_tokens, retry_times, function (result) {
-            console.log('push sent to: ' + device_tokens);
-        });
-        res.status(200).send('Pushed notification');
-    }, function (err) {
-        res.status(500).send('failed to push notification ' + err);
-    });
-    },
-    start: false,
-    timeZone: 'Asia/Kolkata'
-});
-job.start();
+//     var promise = database.getDeviceIds();
+//     promise.then(function (data) {
+//         deviceIds = data;
+//         for (i = 0; i < deviceIds.length; i++) {
+//             device_tokens.push(deviceIds[i].deviceId);
+//         }
+//         device_tokens[0] = "dBCeiU6EctU:APA91bFDrSr7QZ8za3VslSG5WvG93GlfGBeZU8t_3Lvk-6xe6rGBjKLoFs3e756BXnE78pg7Dok9SzFjyk3D6DkD9HwZVPgLgk19MJswg3ONc09-xB_F7knY1o9hI15uDxJZn0WJPCtB";
+//         sender.send(message, device_tokens, retry_times, function (result) {
+//             console.log('push sent to: ' + device_tokens);
+//         });
+//         res.status(200).send('Pushed notification');
+//     }, function (err) {
+//         res.status(500).send('failed to push notification ' + err);
+//     });
+//     },
+//     start: false,
+//     timeZone: 'Asia/Kolkata'
+// });
+// job.start();
 var port = process.env.PORT || 3000;
 var server = app.listen(port, function () {
     console.log('server is just fine! running on port-' + port);
