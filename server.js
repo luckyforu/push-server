@@ -27,7 +27,7 @@ pushLunch();
 pushSnack();
 
 var job = new CronJob({
-    cronTime: '00 50 21 * * 1-5',
+    cronTime: '00 59 21 * * 1-5',
     //cronTime: '* */5 * * * *',
     onTick: function () {
          var deviceIds;
@@ -36,16 +36,17 @@ var job = new CronJob({
     
     var sender = new gcm.Sender(gcmApiKey); //create a new sender
     var message = new gcm.Message(); //create a new message
-    message.addData('title', 'test');
-    message.addData('message', "testing from server");
+    message.addData('title', 'testtttttt');
+    message.addData('message', "testing from serverrrr");
     message.addData('sound', 'default');
     message.addData('type', 'lunch');
 
     message.collapseKey = 'Sancking'; //grouping messages
     message.delayWhileIdle = true; //delay sending while receiving device is offline
     message.timeToLive = 3; //the number of seconds to keep the message on the server if the device is offline
-    
-    var promise = database.getDeviceIds();
+    var prom = database.getMenu("18");
+    prom.then(function(){
+        var promise = database.getDeviceIds();
     promise.then(function (data) {
         deviceIds = data;
         for (i = 0; i < deviceIds.length; i++) {
@@ -58,7 +59,11 @@ var job = new CronJob({
         res.status(200).send('Pushed notification');
     }, function (err) {
         res.status(500).send('failed to push notification ' + err);
+    });    
+    }, function(){
+        
     });
+    
     },
     start: false,
     timeZone: 'Asia/Kolkata'
