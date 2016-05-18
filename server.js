@@ -27,7 +27,7 @@ pushLunch();
 pushSnack();
 
 var job = new CronJob({
-    cronTime: '00 59 21 * * 1-5',
+    cronTime: '00 19 22 * * 1-5',
     //cronTime: '* */5 * * * *',
     onTick: function () {
          var deviceIds;
