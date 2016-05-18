@@ -1,7 +1,4 @@
 ﻿(function (database) {
-
-
-
     var q = require('q');
     var mongoose = require('mongoose'); 
     var dbConnectionString = 'mongodb://nishanth:nishanth@ds023078.mlab.com:23078/snacker';
